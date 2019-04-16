@@ -22,30 +22,38 @@
                 </el-button>
             </el-col>
         </el-row>
-        <el-table v-else
-          :data="rewards"
-          style="width: 100%">
-          <el-table-column label="中奖名单" align="center">
-              <el-table-column
-               type="index"
-               label="序号"
-               align="center"
-               width="80">
+        <el-row v-else>
+            <el-row type="flex" justify="end">
+                <el-col :span="4">
+                    <el-button type="warning" plain @click="exportExcel">导出excel</el-button>
+                </el-col>
+            </el-row>
+            <el-table
+              id="table-reward"
+              :data="rewards"
+              style="width: 100%">
+              <el-table-column label="中奖名单" align="center">
+                  <el-table-column
+                   type="index"
+                   label="序号"
+                   align="center"
+                   width="80">
+                  </el-table-column>
+                  <el-table-column
+                    prop="answer_user.name"
+                    label="用户名"
+                    align="center"
+                    width="200">
+                  </el-table-column>
+                  <el-table-column
+                    prop="rightcounts"
+                    label="答对数"
+                    align="center"
+                    width="80">
+                  </el-table-column>
               </el-table-column>
-              <el-table-column
-                prop="answer_user.name"
-                label="用户名"
-                align="center"
-                width="200">
-              </el-table-column>
-              <el-table-column
-                prop="rightcounts"
-                label="答对数"
-                align="center"
-                width="80">
-              </el-table-column>
-          </el-table-column>
-        </el-table>
+            </el-table>
+        </el-row>
     </div>
 </template>
 
@@ -115,6 +123,16 @@
                     }
                 });
             },
+            exportExcel () {
+                 /* generate workbook object from table */
+                 var wb = XLSX.utils.table_to_book(document.querySelector('#table-reward'))
+                 /* get binary string as output */
+                 var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+                 try {
+                     FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'rewards.xlsx')
+                 } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+                 return wbout
+             },
         }
     }
 </script>
