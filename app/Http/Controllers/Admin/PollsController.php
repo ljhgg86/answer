@@ -37,7 +37,7 @@ class PollsController extends Controller
     public function create()
     {
         $poll=new Polls();
-        return view('admin.polls.create')->withPoll($poll);
+        return view('admin.polls.edit')->withPoll($poll);
     }
 
     /**

@@ -20,8 +20,11 @@
                         <div class="form-group">
                             <div class="col-md-7 col-md-offset-3">
                                 <button type="submit" class="btn btn-primary btn-md">
-                                    添加新{{ config('answer.polls') }}
+                                    添加
                                 </button>
+                                <a type="button" class="btn btn-primary btn-md" href="{{ route('polls.index') }}">
+                                    返回
+                                </a>
                             </div>
                         </div>
                     </form>

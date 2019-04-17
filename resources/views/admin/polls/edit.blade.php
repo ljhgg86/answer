@@ -15,8 +15,8 @@
                 <div class="panel-body">
                     @include('partials.errors')
                     @include('partials.success')
+                    @if($poll->id)
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('polls.update',$poll->id) }}">
-                    	<input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="{{ $poll->id }}">
                         <div class="form-group">
@@ -27,15 +27,21 @@
                                 <input type="text" class="form-control" id="id" name="id" value="{{ $poll->id }}" readonly>
                             </div>
                         </div>
+                    @else
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('polls.store') }}">
+                    @endif
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         @include('admin.polls._form')
                         <div class="form-group">
                             <div class="col-md-7 col-md-offset-3">
                                 <button type="submit" class="btn btn-primary btn-md">
                                     保存
                                 </button>
+                                @if($poll->Id)
                                 <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#modal-delete">
                                     删除
                                 </button>
+                                @endif
                                 <a type="button" class="btn btn-primary btn-md" href="{{ route('polls.index') }}">
                                     返回
                                 </a>
