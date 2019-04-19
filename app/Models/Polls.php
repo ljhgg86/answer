@@ -22,6 +22,9 @@ class Polls extends Model
     public function votes(){
     	return $this->hasMany('App\Models\Votes','poll_id','id');
     }
+    public function answerrecords(){
+        return $this->hasMany('App\Models\Answerrecord','poll_id','id');
+    }
     public function reward(){
         return $this->hasMany('App\Models\Reward','poll_id','id');
     }

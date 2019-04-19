@@ -17,6 +17,9 @@ class Answerrecord extends Model
         'option_id',
         'answertime'
     ];
+    public function poll(){
+        return $this->belongsTo('App\Models\Polls','poll_id');
+    }
     public function votes(){
     	return $this->belongsTo('App\Models\Votes','votes_id');
     }

@@ -60,6 +60,7 @@ class AnswerrecordController extends Controller
         $answerrecord->answertime=date("Y-m-d H:i:s");
         $answerrecord->option_id=$request->input('params.option_id');
         $answerrecord->telphone=$request->input('params.telphone');
+        $answerrecord->answeruser_id=$answeruser->id;
         $answerrecord->save();
         return response()->json([
             'status' => true,
@@ -120,17 +121,17 @@ class AnswerrecordController extends Controller
         $telphone=$request->input('params.telphone');
         //$voteid=$request->input('params.voteid');
         $pollid=$request->input('params.pollid');
-        // $answerrecord=Answerrecord::where('delflag',0)
-        //                             ->where('votes_id',$voteid)
-        //                             ->where('telphone',$telphone)
-        //                             ->get();
-
         $answerrecord=Answerrecord::where('delflag',0)
+                                    ->where('poll_id',$pollid)
                                     ->where('telphone',$telphone)
-                                    ->whereHas('votes.polls',function($query) use ($pollid){
-                                        $query->where('id',intval($pollid));
-                                    })
                                     ->get();
+
+        // $answerrecord=Answerrecord::where('delflag',0)
+        //                             ->where('telphone',$telphone)
+        //                             ->whereHas('votes.polls',function($query) use ($pollid){
+        //                                 $query->where('id',intval($pollid));
+        //                             })
+        //                             ->get();
                                     
         //return $answerrecord;                            
         if($answerrecord->count()==0){
