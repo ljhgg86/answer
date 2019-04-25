@@ -20,6 +20,7 @@ class AnswerrecordController extends Controller
         $this->answerUser = new AnswerUser();
         $this->poll = new Polls();
         $this->reward = new Reward();
+        $this->vote = new Votes();
     }
     /**
      * Display a listing of the resource.
@@ -164,6 +165,26 @@ class AnswerrecordController extends Controller
                 'data'=>$lotteryRst,
                 'message' => '成功'
             ])->setStatusCode(200);
+        }
+    }
+
+    //获取全部答对用户
+    public function getAllRightUsers(Request $request){
+        $pollid=$request->input('params.pollid');
+        $votes=$this->vote->getVotes($pollid);
+        $allRightUsers=$this->answerUser->getAllRight($pollid,count($votes));
+        if($allRightUsers){
+            return response()->json([
+                'status' => "success",
+                'data' => $allRightUsers,
+                'votescount' => count($votes),
+            ])->setStatusCode(200);
+        }
+        else{
+            return response()->json([
+                'status' => "fail",
+                'data' => ""
+            ])->setStatusCode(400);
         }
     }
 }

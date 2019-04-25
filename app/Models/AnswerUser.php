@@ -35,4 +35,19 @@ class AnswerUser extends Model
         //return json_encode($lotteries);
         return $lotteries;
     }
+    public function getAllRight($pollid,$votesCount){
+        $users=$this->withCount(['answerrecord'=>function($query) use($pollid){
+                            $query->where('poll_id' , $pollid)
+                                ->where('delflag',0)
+                                ->whereHas('option',function($query){
+                                    $query->where('delflag',0)
+                                        ->where('rightflag',1);
+                                });
+                        }])
+                        ->orderBy('answerrecord_count','desc')
+                        ->orderBy(DB::raw('RAND()'))
+                        ->take(20)
+                        ->get();
+        return $users;
+    }
 }

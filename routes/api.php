@@ -20,5 +20,6 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'admin','middleware' => 'cors'],
 	Route::get('/getPolls/{id}','PollsController@getPolls');
 	Route::resource('polls', 'PollsController');
 	Route::post('/answerrecord/hasVoted','AnswerrecordController@hasVoted')->name('admin.answerrecord.hasVoted');
+	Route::post('/answerrecord/getAllRightUsers','AnswerrecordController@getAllRightUsers')->name('admin.answerrecord.getAllRightUsers');
 	Route::resource('answerrecord', 'AnswerrecordController');
 });

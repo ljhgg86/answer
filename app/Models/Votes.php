@@ -24,4 +24,9 @@ class Votes extends Model
     public function answerrecord(){
         return $this->hasMany('App\Models\Answerrecord','votes_id','id');
     }
+    public function getVotes($pollid){
+        return $this->where('poll_id',$pollid)
+                    ->where('delflag',0)
+                    ->get();
+    }
 }
