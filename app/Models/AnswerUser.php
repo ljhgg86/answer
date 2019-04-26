@@ -35,11 +35,11 @@ class AnswerUser extends Model
         //return json_encode($lotteries);
         return $lotteries;
     }
-    public function getAllRight($pollid,$votesCount){
+    public function getAllRight($pollid){
         $users=$this->withCount(['answerrecord'=>function($query) use($pollid){
                             $query->where('poll_id' , $pollid)
                                 ->where('delflag',0)
-                                ->whereHas('option',function($query){
+                                ->where('option',function($query){
                                     $query->where('delflag',0)
                                         ->where('rightflag',1);
                                 });

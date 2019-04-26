@@ -172,7 +172,7 @@ class AnswerrecordController extends Controller
     public function getAllRightUsers(Request $request){
         $pollid=$request->input('params.pollid');
         $votes=$this->vote->getVotes($pollid);
-        $allRightUsers=$this->answerUser->getAllRight($pollid,count($votes));
+        $allRightUsers=$this->answerUser->getAllRight($pollid);
         if($allRightUsers){
             return response()->json([
                 'status' => "success",
