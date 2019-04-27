@@ -29,7 +29,22 @@ class AnswerrecordController extends Controller
      */
     public function index()
     {
-        //
+        $answerrecords=Answerrecord::where('delflag',0)
+                                    ->with(['answerUser'=>function($query){
+                                        $query->where('delflag',0);
+                                    },
+                                    'poll'=>function($query){
+                                        $query->where('delflag',0);
+                                    },
+                                    'votes'=>function($query){
+                                        $query->where('delflag',0);
+                                    },
+                                    'option'=>function($query){
+                                        $query->where('delflag',0);
+                                    }])
+                                    ->orderBy('id','desc')
+                                    ->paginate(15);
+        return view('admin.answerrecords.index')->withAnswerrecords($answerrecords);
     }
 
     /**
@@ -172,7 +187,9 @@ class AnswerrecordController extends Controller
     public function getAllRightUsers(Request $request){
         $pollid=$request->input('params.pollid');
         $votes=$this->vote->getVotes($pollid);
-        $allRightUsers=$this->answerUser->getAllRight($pollid);
+        //$allRightUsers=$this->answerUser->getAllRight($pollid);
+        $num=intval(config('answer.showRightCounts'));
+        $allRightUsers=$this->answerUser->lottery($pollid,$num);
         if($allRightUsers){
             return response()->json([
                 'status' => "success",

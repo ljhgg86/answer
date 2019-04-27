@@ -36,20 +36,17 @@
                   <el-table-column
                    type="index"
                    label="序号"
-                   align="center"
-                   width="80">
+                   align="center">
                   </el-table-column>
                   <el-table-column
                     prop="answer_user.name"
                     label="用户名"
-                    align="center"
-                    width="200">
+                    align="center">
                   </el-table-column>
                   <el-table-column
                     prop="rightcounts"
                     label="答对数"
-                    align="center"
-                    width="80">
+                    align="center">
                   </el-table-column>
               </el-table-column>
             </el-table>

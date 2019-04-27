@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Admin', 'prefix'=>'admin','middleware' => 'auth'],
 	Route::post('/image/upload', 'UploadController@uploadImgFile')->name('image.upload');
 	Route::post('/video/upload', 'UploadController@uploadVideoFile')->name('video.upload');
 	Route::post('/answerrecord/lottery','AnswerrecordController@lottery')->name('admin.answerrecord.lottery');
+	Route::get('/answerrecord/index','AnswerrecordController@index')->name('admin.answerrecord.index');
 });
 
 Auth::routes();

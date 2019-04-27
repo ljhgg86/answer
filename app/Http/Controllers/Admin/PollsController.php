@@ -24,6 +24,7 @@ class PollsController extends Controller
     public function index()
     {
         $polls=Polls::where('delflag',0)
+                    ->orderBy('id','desc')
                     ->paginate(15);
         //var_dump($polls->currentPage());
         return view('admin.polls.index')->withPolls($polls);

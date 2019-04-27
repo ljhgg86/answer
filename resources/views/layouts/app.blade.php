@@ -43,9 +43,7 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{url('/user/showAdmin')}}">管理员</a></li>
-                                <li><a href="{{url('/user')}}">用户管理</a></li>
-                                <li><a href="{{url('/role')}}">角色管理</a></li>
+                                <li><a href="{{url('/admin/answerrecord/index')}}">答题记录</a></li>
                             </ul>
                         </li>
                     </ul>

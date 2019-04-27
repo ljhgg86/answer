@@ -27,9 +27,9 @@
                         </tr>
                      </thead>
                     <tbody>
-                    @foreach ($polls as $poll)
+                    @foreach ($polls as $key=>$poll)
                         <tr>
-                            <td>{{ $poll->id }}</td>
+                            <td>{{ $key+1 }}</td>
                             <td>{{ $poll->title }}</td>
                             
                             <td>
@@ -48,6 +48,9 @@
                                     抽奖
                                 </button>
                                 @endif
+                                <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#pollslink" onclick="pollsLink({{ $poll->id }})">
+                                    链接地址
+                                </button>
                             </td>
                         </tr>
                     @endforeach
@@ -62,4 +65,12 @@
         </div>
     </div>
 @include('admin.polls._modals')
+@stop
+@section('scripts')
+    <script type="text/javascript">
+        function pollsLink(pollid){
+            var addr="https://green.strtv.cn/answerclient/index.php?pollid="+pollid+"#/";
+            $("#link_addr").text(addr);
+        }
+    </script>
 @stop
